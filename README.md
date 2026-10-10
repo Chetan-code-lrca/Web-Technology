@@ -30,7 +30,7 @@ cd Web-Technology
 Open the page in a web browser:
 
 ```text
-Calculator using HTML,CSS,JS
+index.html
 ```
 
 You can double-click the file or open it from the browser using **File → Open**. No server, Node.js installation, or external dependencies are required for the current example.
