@@ -1,5 +1,7 @@
 const assert = require("node:assert/strict");
 const test = require("node:test");
+const fs = require("node:fs");
+const path = require("node:path");
 const { calculateValues } = require("../calculator.js");
 
 test("calculates each supported operation", () => {
@@ -37,4 +39,14 @@ test("rejects numeric overflow", () => {
   const result = calculateValues("1e308", "1e308", "*");
   assert.equal(result.ok, false);
   assert.match(result.message, /numeric range/i);
+});
+
+
+test("labels arithmetic controls as an accessible group", () => {
+  const html = fs.readFileSync(path.join(__dirname, "../index.html"), "utf8");
+  const operationsContainer = html.match(/<div\b(?=[^>]*\bclass="operations")([^>]*)>/);
+
+  assert.ok(operationsContainer, "operations container should exist");
+  assert.match(operationsContainer[1], /\brole="group"/);
+  assert.match(operationsContainer[1], /\baria-label="Arithmetic operations"/);
 });
