@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A simple calculator built with HTML, CSS, and JavaScript.">
+  <title>Calculator | Web Technology Practice</title>
+  <link rel="stylesheet" href="./calculator.css">
+  <script src="./calculator.js"></script>
+</head>
+<body>
+  <main class="calculator">
+    <h1>Calculator</h1>
+    <p class="intro">Perform basic arithmetic with two numbers.</p>
+
+    <div class="fields">
+      <div class="field">
+        <label for="num1">First number</label>
+        <input id="num1" type="number" step="any" inputmode="decimal" placeholder="e.g. 12.5">
+      </div>
+      <div class="field">
+        <label for="num2">Second number</label>
+        <input id="num2" type="number" step="any" inputmode="decimal" placeholder="e.g. 4">
+      </div>
+    </div>
+
+    <div class="operations" aria-label="Arithmetic operations">
+      <button type="button" data-operator="+" aria-label="Add">+</button>
+      <button type="button" data-operator="-" aria-label="Subtract">−</button>
+      <button type="button" data-operator="*" aria-label="Multiply">×</button>
+      <button type="button" data-operator="/" aria-label="Divide">÷</button>
+      <button type="button" id="clear" class="secondary">Clear</button>
+    </div>
+
+    <p id="result" class="result" role="status" aria-live="polite">Result: 0</p>
+  </main>
+
+  <script>
+    document.querySelectorAll("[data-operator]").forEach((button) => {
+      button.addEventListener("click", () => calculate(button.dataset.operator));
+    });
+    document.getElementById("clear").addEventListener("click", clearCalculator);
+
+    function calculate(operator) {
+      const first = document.getElementById("num1").value;
+      const second = document.getElementById("num2").value;
+      const result = window.CalculatorCore.calculateValues(first, second, operator);
+      const output = document.getElementById("result");
+
+      output.textContent = result.ok ? `Result: ${result.value}` : result.message;
+      output.classList.toggle("error", !result.ok);
+      output.classList.toggle("success", result.ok);
+    }
+
+    function clearCalculator() {
+      document.getElementById("num1").value = "";
+      document.getElementById("num2").value = "";
+      const output = document.getElementById("result");
+      output.textContent = "Result: 0";
+      output.classList.remove("error", "success");
+    }
+  </script>
+</body>
+</html>
