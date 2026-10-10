@@ -35,6 +35,16 @@ Calculator using HTML,CSS,JS
 
 You can double-click the file or open it from the browser using **File → Open**. No server, Node.js installation, or external dependencies are required for the current example.
 
+## Tests
+
+Node.js 20 or newer is sufficient to run the behavior tests:
+
+```bash
+node --test tests/calculator.test.cjs
+```
+
+The tests execute the page's existing JavaScript against a tiny in-memory DOM stub. They cover all four arithmetic operations, missing input, division by zero, and clearing; no browser automation package is required.
+
 ## How it works
 
 Two numeric inputs are read from the page. Each operator button passes its operation to the `calculate()` function, which performs the calculation and updates the result on the page.
