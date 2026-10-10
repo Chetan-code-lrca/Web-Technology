@@ -50,7 +50,7 @@ test("shows a message when either input is missing", () => {
 
   calculate("+");
 
-  assert.match(elements.result.innerText, /enter both values/i);
+  assert.match(elements.result.innerText, /enter both the values/i);
   assert.equal(elements.result.style.color, "red");
 });
 
