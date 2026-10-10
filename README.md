@@ -1,54 +1,43 @@
 # Web Technology Practice
 
-A collection of small web-development exercises written with plain HTML, CSS, and JavaScript.
+A small, dependency-free calculator made with semantic HTML, CSS, and plain JavaScript.
 
-## Current project
+## Features
 
-The repository currently contains a browser-based calculator.
-
-The calculator supports:
-
-- Addition
-- Subtraction
-- Multiplication
-- Division
-- Clearing the inputs and result
-- Basic validation when an input is missing
-- Division-by-zero handling
-
-The implementation is contained in a single HTML file with its CSS and JavaScript included in the same document.
+- Addition, subtraction, multiplication, and division
+- Decimal and negative numbers
+- Validation for missing, non-finite, and unsupported values
+- Clear button
+- Accessible input labels, keyboard focus styles, and an announced result
+- Automated tests using Node.js's built-in test runner
 
 ## Run locally
 
-Clone the repository:
+Requirements: a modern browser and Python 3 (for the local static server). No package installation is required to run the page.
 
 ```bash
 git clone https://github.com/Chetan-code-lrca/Web-Technology.git
 cd Web-Technology
+python -m http.server 8000
 ```
 
-Open the calculator file in a web browser:
+Open [http://localhost:8000/calculator.html](http://localhost:8000/calculator.html).
+
+## Run tests
+
+Node.js 20 or newer is required only for the tests:
+
+```bash
+node --test tests/*.test.cjs
+```
+
+## Files
 
 ```text
-Calculator using HTML,CSS,JS
+calculator.html       Page structure
+calculator.css        Responsive styling
+calculator.js         Testable arithmetic logic
+tests/calculator.test.cjs
 ```
 
-You can double-click the file or open it from the browser using **File → Open**. No server, Node.js installation, or external dependencies are required for the current example.
-
-## How it works
-
-Two numeric inputs are read from the page. Each operator button passes its operation to the `calculate()` function, which performs the calculation and updates the result on the page.
-
-The JavaScript also checks for empty inputs before calculating and prevents division by zero.
-
-## Repository structure
-
-```text
-Web-Technology/
-├── Calculator using HTML,CSS,JS
-└── README.md
-```
-
-## Notes
-
-This is a small practice repository for web-technology coursework and experimentation. The current calculator is intentionally simple and does not use a JavaScript framework or a build system.
+The calculation logic is deliberately separated from the DOM, so edge cases can be tested without browser automation or third-party libraries.
