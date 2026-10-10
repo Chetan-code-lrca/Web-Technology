@@ -1,0 +1,35 @@
+name: Calculator Tests
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: web-tech-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+      - name: Test calculator behavior
+        run: node --test tests/calculator.test.cjs
+      - name: Check inline JavaScript syntax
+        run: |
+          node - <<'NODE'
+          const fs = require("node:fs");
+          const html = fs.readFileSync("index.html", "utf8");
+          const script = html.match(/<script>([\s\S]*?)<\/script>/i)?.[1];
+          if (!script) throw new Error("Inline calculator script not found");
+          new Function(script);
+          NODE
