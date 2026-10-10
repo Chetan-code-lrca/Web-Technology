@@ -27,7 +27,7 @@ git clone https://github.com/Chetan-code-lrca/Web-Technology.git
 cd Web-Technology
 ```
 
-Open the calculator file in a web browser:
+Open the page in a web browser:
 
 ```text
 Calculator using HTML,CSS,JS
@@ -39,13 +39,14 @@ You can double-click the file or open it from the browser using **File → Open*
 
 Two numeric inputs are read from the page. Each operator button passes its operation to the `calculate()` function, which performs the calculation and updates the result on the page.
 
-The JavaScript also checks for empty inputs before calculating and prevents division by zero.
+The JavaScript also checks for empty inputs before calculating and prevents division by zero. The built-in Node.js test suite checks all four operations, missing input, zero division, and clearing the calculator.
 
 ## Repository structure
 
 ```text
 Web-Technology/
-├── Calculator using HTML,CSS,JS
+├── index.html
+├── tests/calculator.test.cjs
 └── README.md
 ```
 
