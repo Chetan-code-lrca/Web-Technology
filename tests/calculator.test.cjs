@@ -7,7 +7,7 @@ const { calculateValues } = require("../calculator.js");
 
 function createPageHarness() {
   const html = fs.readFileSync(path.join(__dirname, "../index.html"), "utf8");
-  const inlineScript = html.match(/<script>([\\s\\S]*?)<\\/script>/i)?.[1];
+  const inlineScript = html.match(/<script>([\s\S]*?)<\/script>/i)?.[1];
   assert.ok(inlineScript, "index.html should contain the inline UI script");
 
   const listeners = new Map();
