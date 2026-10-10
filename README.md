@@ -21,7 +21,7 @@ cd Web-Technology
 python -m http.server 8000
 ```
 
-Open [http://localhost:8000/calculator.html](http://localhost:8000/calculator.html).
+Open [http://localhost:8000/](http://localhost:8000/).
 
 ## Run tests
 
@@ -34,7 +34,7 @@ node --test tests/*.test.cjs
 ## Files
 
 ```text
-calculator.html       Page structure
+index.html             Page structure
 calculator.css        Responsive styling
 calculator.js         Testable arithmetic logic
 tests/calculator.test.cjs
