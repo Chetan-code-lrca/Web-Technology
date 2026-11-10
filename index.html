@@ -47,7 +47,9 @@
       const result = window.CalculatorCore.calculateValues(first, second, operator);
       const output = document.getElementById("result");
 
-      output.textContent = result.ok ? `Result: ${result.value}` : result.message;
+      output.textContent = result.ok
+        ? `Result: ${window.CalculatorCore.formatResult(result.value)}`
+        : result.message;
       output.classList.toggle("error", !result.ok);
       output.classList.toggle("success", result.ok);
     }
