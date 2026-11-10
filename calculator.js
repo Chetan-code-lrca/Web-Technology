@@ -40,5 +40,14 @@
     return { ok: true, value };
   }
 
-  return Object.freeze({ calculateValues });
+  function formatResult(value) {
+    if (!Number.isFinite(value) || Number.isInteger(value)) {
+      return String(value);
+    }
+
+    // Keep the full calculation value; round only its presentation to 15 significant digits.
+    return String(Number(value.toPrecision(15)));
+  }
+
+  return Object.freeze({ calculateValues, formatResult });
 });

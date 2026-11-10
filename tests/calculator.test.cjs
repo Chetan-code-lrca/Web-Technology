@@ -3,7 +3,7 @@ const test = require("node:test");
 const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
-const { calculateValues } = require("../calculator.js");
+const { calculateValues, formatResult } = require("../calculator.js");
 
 function createPageHarness() {
   const html = fs.readFileSync(path.join(__dirname, "../index.html"), "utf8");
@@ -98,6 +98,14 @@ test("rejects numeric overflow", () => {
   assert.match(result.message, /numeric range/i);
 });
 
+test("formats decimal results cleanly without changing calculation precision", () => {
+  const result = calculateValues("0.1", "0.2", "+");
+
+  assert.equal(result.value, 0.30000000000000004);
+  assert.equal(formatResult(result.value), "0.3");
+  assert.equal(formatResult(1 / 3), "0.333333333333333");
+  assert.equal(formatResult(9007199254740991), "9007199254740991");
+});
 
 test("labels arithmetic controls as an accessible group", () => {
   const html = fs.readFileSync(path.join(__dirname, "../index.html"), "utf8");
@@ -108,6 +116,17 @@ test("labels arithmetic controls as an accessible group", () => {
   assert.match(operationsContainer[1], /\baria-label="Arithmetic operations"/);
 });
 
+test("calculator UI displays clean decimal output", () => {
+  const page = createPageHarness();
+  page.elements.num1.value = "0.1";
+  page.elements.num2.value = "0.2";
+
+  page.listeners.get("+")();
+
+  assert.equal(page.elements.result.textContent, "Result: 0.3");
+  assert.ok(page.classes.has("success"));
+  assert.equal(page.classes.has("error"), false);
+});
 
 test("Clear resets inputs, result, and success styling after a calculation", () => {
   const page = createPageHarness();
